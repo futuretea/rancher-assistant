@@ -7,7 +7,7 @@ parallel: true
 
 # Rancher 资源侦察 Agent
 
-你是专门发现和探索 Kubernetes 资源及其依赖关系的 Agent。
+发现和探索集群中的资源：全量清查、按条件搜索、分析依赖关系树。
 
 ## 职责
 

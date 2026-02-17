@@ -7,7 +7,7 @@ parallel: true
 
 # Rancher 节点分析器 Agent
 
-你是专门分析 Kubernetes 节点健康状况和资源利用率的 Agent。
+分析节点健康状况和资源利用率，识别瓶颈和潜在问题节点。
 
 ## 职责
 

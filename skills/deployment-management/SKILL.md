@@ -6,7 +6,7 @@ version: 1.0.0
 
 # Rancher 部署管理
 
-本技能帮助你追踪 Deployment 变更、查看发布历史、比较资源差异和监控滚动更新。
+追踪 Deployment 变更、查看发布历史、对比资源差异、监控滚动更新。
 
 ## 主要 Sub-Agent
 

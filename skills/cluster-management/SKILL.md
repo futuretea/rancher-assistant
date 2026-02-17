@@ -6,7 +6,7 @@ version: 1.0.0
 
 # Rancher 集群管理
 
-本技能帮助你导航和管理 Rancher 多集群环境。简单查询直接执行；复杂的多集群分析委托给 Sub-Agent。
+导航和管理 Rancher 多集群环境。简单查询直接执行；复杂的多集群分析委托给 Sub-Agent。
 
 ## 直接操作（无需 Sub-Agent）
 

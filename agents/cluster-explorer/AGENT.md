@@ -7,7 +7,7 @@ parallel: true
 
 # Rancher 集群探索器 Agent
 
-你是专门探索和导航 Rancher 多集群环境的 Agent。
+负责探索和导航 Rancher 多集群环境：列出集群、查看项目、获取概览、对比多集群。
 
 ## 职责
 

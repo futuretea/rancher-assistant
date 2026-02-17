@@ -6,7 +6,7 @@ version: 1.0.0
 
 # Rancher 资源排查
 
-本技能帮助你诊断和排查 Kubernetes 资源问题。简单日志/事件查询直接执行；复杂诊断委托给 Sub-Agent。
+诊断和排查 Kubernetes 资源问题。简单日志/事件查询直接执行；复杂诊断委托给 Sub-Agent。
 
 ## 直接操作（无需 Sub-Agent）
 

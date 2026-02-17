@@ -7,7 +7,7 @@ parallel: true
 
 # Rancher 部署追踪器 Agent
 
-你是专门追踪 Kubernetes 部署变更和发布历史的 Agent。
+追踪 Kubernetes Deployment 变更和发布历史，支持跨集群对比和实时监控。
 
 ## 职责
 

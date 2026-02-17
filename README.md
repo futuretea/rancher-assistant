@@ -1,6 +1,6 @@
 # Rancher Assistant for Claude Code
 
-一套用于 Claude Code 的 Rancher 多集群 Kubernetes 管理集成技能，采用 **Sub-Agent + Skill** 架构，支持并行处理和独立上下文。
+Claude Code 插件，用于 Rancher 多集群 Kubernetes 管理。采用 **Sub-Agent + Skill** 架构，Skill 负责意图识别，Agent 负责干活，各自独立上下文、支持并行。
 
 ## 架构特点
 
@@ -273,6 +273,8 @@ rancher-assistant/
 
 ## Sub-Agent 并行执行模式
 
+并行的思路很简单：把可以同时跑的任务拆给不同 Agent，最后汇总。下面是几种典型场景：
+
 ### 多集群并行分析
 
 ```javascript
@@ -306,7 +308,7 @@ User: "诊断这三个 Pod"
 → 汇总诊断结果
 ```
 
-### 集群巡检并行巡检
+### 多集群并行巡检
 
 ```javascript
 User: "巡检所有集群"
@@ -363,6 +365,8 @@ User: "对比三个环境中的 api-server"
 2. 定义触发条件（description）
 3. 说明何时调用哪个 sub-agent
 4. 提供并行执行模式示例
+
+添加新功能时，值得想一下：能不能跟多个集群并行跑？能不能复用已有 Agent？能不能减少 API 调用次数？
 
 ### Agent 文件格式
 

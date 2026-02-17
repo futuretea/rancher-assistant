@@ -12,7 +12,7 @@
       "source": "./",
       "description": "Rancher assistant for multi-cluster Kubernetes management, troubleshooting, capacity analysis, and resource discovery (Community)",
       "version": "1.0.0",
-      "keywords": ["rancher", "kubernetes", "multi-cluster", "troubleshooting", "capacity-planning"]
+      "keywords": ["rancher", "kubernetes", "multi-cluster", "troubleshooting", "capacity-planning", "inspection"]
     }
   ]
 }

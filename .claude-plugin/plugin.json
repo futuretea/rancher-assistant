@@ -8,5 +8,5 @@
   },
   "repository": "https://github.com/futuretea/rancher-assistant",
   "license": "MIT",
-  "keywords": ["rancher", "kubernetes", "multi-cluster", "troubleshooting", "capacity-planning", "node-analysis", "deployment-tracking"]
+  "keywords": ["rancher", "kubernetes", "multi-cluster", "troubleshooting", "capacity-planning", "node-analysis", "deployment-tracking", "inspection"]
 }

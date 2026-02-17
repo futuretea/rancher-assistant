@@ -6,7 +6,7 @@ version: 1.0.0
 
 # Rancher 资源发现
 
-本技能帮助你发现、搜索和探索 Kubernetes 资源及其依赖关系。
+发现、搜索和探索 Kubernetes 资源及其依赖关系。
 
 ## 主要 Sub-Agent
 

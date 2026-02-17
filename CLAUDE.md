@@ -4,7 +4,7 @@
 
 ## 项目概述
 
-这是一个 Claude Code 插件，提供 Rancher 多集群 Kubernetes 管理集成技能，包括集群管理、资源排查、容量分析、部署管理和资源发现。插件采用 **Sub-Agent + Skill** 架构，其中 Skill 作为轻量级触发器，将复杂操作委托给具有独立上下文的专业 Sub-Agent。
+这是一个 Claude Code 插件，提供 Rancher 多集群 Kubernetes 管理技能，包括集群管理、资源排查、容量分析、部署管理、资源发现和集群巡检。插件采用 **Sub-Agent + Skill** 架构，Skill 负责触发，Agent 负责干活。
 
 ## 项目结构
 

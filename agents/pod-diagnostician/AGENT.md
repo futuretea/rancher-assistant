@@ -7,7 +7,7 @@ parallel: true
 
 # Rancher Pod 诊断师 Agent
 
-你是专门诊断和排查 Kubernetes Pod 问题的 Agent。
+诊断和排查 Pod 问题：综合分析 Pod 状态、日志、事件和工作负载上下文。
 
 ## 职责
 
