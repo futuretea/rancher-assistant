@@ -97,6 +97,18 @@
 - 支持资源依赖关系树分析
 - 多命名空间/多集群并行搜索
 
+### 6. Cluster Inspection（集群巡检）
+
+**触发词**: "inspection", "inspect cluster", "health check", "patrol", "巡检", "集群巡检", "健康检查", "集群体检", "日常巡检"
+
+**执行方式**:
+- 委托给 `rancher-cluster-inspector`
+- 支持完整巡检（full）、快速巡检（quick）和专项巡检（nodes/workloads/events）
+- 多集群并行巡检，生成多集群总览
+- 覆盖 6 大维度：集群信息、节点健康、资源容量、工作负载、异常事件、系统组件
+- 各维度独立评分（A/B/C/D），生成结构化报告
+- 支持变更前后对比巡检
+
 ## 项目结构
 
 ```
@@ -111,13 +123,15 @@ rancher-assistant/
 │   ├── pod-diagnostician/AGENT.md       # Pod 诊断 Agent
 │   ├── node-analyzer/AGENT.md           # 节点分析 Agent
 │   ├── deployment-tracker/AGENT.md      # 部署追踪 Agent
-│   └── resource-scout/AGENT.md          # 资源发现 Agent
+│   ├── resource-scout/AGENT.md          # 资源发现 Agent
+│   └── cluster-inspector/AGENT.md       # 集群巡检 Agent
 ├── skills/                              # Skill 触发器
 │   ├── cluster-management/SKILL.md
 │   ├── resource-troubleshooting/SKILL.md
 │   ├── capacity-analysis/SKILL.md
 │   ├── deployment-management/SKILL.md
-│   └── resource-discovery/SKILL.md
+│   ├── resource-discovery/SKILL.md
+│   └── cluster-inspection/SKILL.md
 ├── .gitignore
 ├── CLAUDE.md
 ├── LICENSE
@@ -227,6 +241,36 @@ rancher-assistant/
 → 展示最近创建的资源
 ```
 
+### 集群巡检
+
+```
+# 完整巡检
+"对 production 集群做一次完整巡检"
+→ 启动 cluster-inspector
+→ 并行采集节点、容量、工作负载、事件、系统组件数据
+→ 生成巡检报告（含评分和建议）
+
+# 快速巡检
+"快速检查一下集群状态"
+→ 启动 cluster-inspector（scope: quick）
+→ 检查节点健康 + 异常事件
+→ 生成快速报告
+
+# 多集群巡检
+"巡检所有集群"
+→ 获取集群列表
+→ 并行启动多个 cluster-inspector
+→ 生成多集群巡检总览
+
+# 变更前检查
+"做一次变更前巡检"
+→ 完整巡检，保存为基线
+
+# 专项巡检
+"检查所有节点健康状况" / "工作负载巡检" / "检查异常事件"
+→ 启动 cluster-inspector（scope: nodes/workloads/events）
+```
+
 ## Sub-Agent 并行执行模式
 
 ### 多集群并行分析
@@ -260,6 +304,17 @@ User: "诊断这三个 Pod"
    Task({ agent: "pod-diagnostician", pod: "pod-b" })
    Task({ agent: "pod-diagnostician", pod: "pod-c" })
 → 汇总诊断结果
+```
+
+### 集群巡检并行巡检
+
+```javascript
+User: "巡检所有集群"
+→ Parallel:
+   Task({ agent: "cluster-inspector", cluster: "c-abc123" })
+   Task({ agent: "cluster-inspector", cluster: "c-def456" })
+   Task({ agent: "cluster-inspector", cluster: "c-ghi789" })
+→ 生成多集群巡检总览
 ```
 
 ### 跨集群资源对比

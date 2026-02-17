@@ -20,13 +20,15 @@ rancher-assistant/
 │   ├── pod-diagnostician/AGENT.md       # Pod 诊断 Agent
 │   ├── node-analyzer/AGENT.md           # 节点分析 Agent
 │   ├── deployment-tracker/AGENT.md      # 部署追踪 Agent
-│   └── resource-scout/AGENT.md          # 资源发现 Agent
+│   ├── resource-scout/AGENT.md          # 资源发现 Agent
+│   └── cluster-inspector/AGENT.md       # 集群巡检 Agent
 ├── skills/                              # Skill 触发器
 │   ├── cluster-management/SKILL.md      # 集群/项目管理
 │   ├── resource-troubleshooting/SKILL.md # 资源排查
 │   ├── capacity-analysis/SKILL.md       # 容量分析
 │   ├── deployment-management/SKILL.md   # 部署管理
-│   └── resource-discovery/SKILL.md      # 资源发现
+│   ├── resource-discovery/SKILL.md      # 资源发现
+│   └── cluster-inspection/SKILL.md      # 集群巡检
 ├── .gitignore
 ├── CLAUDE.md                            # 本文件
 ├── LICENSE                              # MIT 许可证
@@ -179,11 +181,30 @@ const tasks = pods.map(p => Task({
 - 需要多步分析或多源数据获取（Pod 详情 + 日志 + 事件）
 - 可并行化的调用（多集群、多节点、多 Pod）
 - 复杂的容量分析或趋势对比
+- 集群巡检（系统化多维度健康检查）
 
 ### 直接调用 MCP 工具的场景
 - 已知具体参数的简单查询（获取单个资源、查看日志）
 - 参数明确的单工具调用（列出集群、列出项目）
 - 简单的 CRUD 操作（创建、修补、删除资源）
+
+## 集群巡检
+
+巡检是对集群的系统化健康检查，覆盖 6 大维度：
+
+1. **集群基础信息**：状态、版本、项目
+2. **节点健康**：Ready 状态、Conditions、Taints、版本一致性
+3. **资源容量**：CPU/内存请求/限制/使用率、Pod 数量、过度分配
+4. **工作负载健康**：Deployment/StatefulSet/DaemonSet 可用性、异常 Pod
+5. **异常事件**：Warning 事件、高频重复事件、关键事件类型
+6. **系统组件**：kube-system、cattle-system 核心组件状态
+
+巡检范围：
+- **full**：完整巡检（所有维度）
+- **quick**：快速巡检（节点 + 事件）
+- **nodes/workloads/events**：专项巡检
+
+评分体系：A（优秀）→ B（良好）→ C（一般）→ D（较差）
 
 ## 添加新组件
 
