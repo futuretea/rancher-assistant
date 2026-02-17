@@ -1,0 +1,12 @@
+{
+  "name": "rancher-assistant",
+  "description": "Rancher assistant for multi-cluster Kubernetes management, troubleshooting, capacity analysis, and resource discovery (Community)",
+  "version": "1.0.0",
+  "author": {
+    "name": "futuretea",
+    "email": "futuretea1024@gmail.com"
+  },
+  "repository": "https://github.com/futuretea/rancher-assistant",
+  "license": "MIT",
+  "keywords": ["rancher", "kubernetes", "multi-cluster", "troubleshooting", "capacity-planning", "node-analysis", "deployment-tracking"]
+}

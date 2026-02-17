@@ -1,0 +1,18 @@
+{
+  "name": "rancher-assistant",
+  "owner": {
+    "name": "futuretea"
+  },
+  "metadata": {
+    "description": "Rancher assistant for multi-cluster Kubernetes management, troubleshooting, capacity analysis, and resource discovery"
+  },
+  "plugins": [
+    {
+      "name": "rancher-assistant",
+      "source": "./",
+      "description": "Rancher assistant for multi-cluster Kubernetes management, troubleshooting, capacity analysis, and resource discovery (Community)",
+      "version": "1.0.0",
+      "keywords": ["rancher", "kubernetes", "multi-cluster", "troubleshooting", "capacity-planning"]
+    }
+  ]
+}
