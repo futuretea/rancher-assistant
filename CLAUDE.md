@@ -16,19 +16,25 @@ rancher-assistant/
 │   ├── marketplace.json                 # 插件市场元数据
 │   └── plugin.json                      # 插件元数据
 ├── agents/                              # Sub-Agent 定义
-│   ├── cluster-explorer/AGENT.md        # 多集群导航 Agent
-│   ├── pod-diagnostician/AGENT.md       # Pod 诊断 Agent
-│   ├── node-analyzer/AGENT.md           # 节点分析 Agent
-│   ├── deployment-tracker/AGENT.md      # 部署追踪 Agent
-│   ├── resource-scout/AGENT.md          # 资源发现 Agent
-│   └── cluster-inspector/AGENT.md       # 集群巡检 Agent
+│   ├── cluster-explorer.md              # 多集群导航 Agent
+│   ├── pod-diagnostician.md             # Pod 诊断 Agent
+│   ├── node-analyzer.md                 # 节点分析 Agent
+│   ├── deployment-tracker.md            # 部署追踪 Agent
+│   ├── resource-scout.md                # 资源发现 Agent
+│   ├── cluster-inspector.md             # 集群巡检协调器 Agent
+│   ├── cluster-info-inspector.md        # 巡检维度: 集群基础信息
+│   ├── node-health-inspector.md         # 巡检维度: 节点健康
+│   ├── capacity-inspector.md            # 巡检维度: 资源容量
+│   ├── workload-inspector.md            # 巡检维度: 工作负载健康
+│   ├── event-inspector.md               # 巡检维度: 异常事件
+│   └── system-inspector.md              # 巡检维度: 系统组件
 ├── skills/                              # Skill 触发器
 │   ├── cluster-management/SKILL.md      # 集群/项目管理
 │   ├── resource-troubleshooting/SKILL.md # 资源排查
 │   ├── capacity-analysis/SKILL.md       # 容量分析
 │   ├── deployment-management/SKILL.md   # 部署管理
 │   ├── resource-discovery/SKILL.md      # 资源发现
-│   └── cluster-inspection/SKILL.md      # 集群巡检
+│   └── cluster-inspection/SKILL.md      # 集群巡检（多 Agent 并行）
 ├── .gitignore
 ├── CLAUDE.md                            # 本文件
 ├── LICENSE                              # MIT 许可证
@@ -188,21 +194,27 @@ const tasks = pods.map(p => Task({
 - 参数明确的单工具调用（列出集群、列出项目）
 - 简单的 CRUD 操作（创建、修补、删除资源）
 
-## 集群巡检
+## 集群巡检（多 Agent 并行）
 
-巡检是对集群的系统化健康检查，覆盖 6 大维度：
+巡检采用多 Agent 并行架构，6 个维度各有专属 Agent 同时执行：
 
-1. **集群基础信息**：状态、版本、项目
-2. **节点健康**：Ready 状态、Conditions、Taints、版本一致性
-3. **资源容量**：CPU/内存请求/限制/使用率、Pod 数量、过度分配
-4. **工作负载健康**：Deployment/StatefulSet/DaemonSet 可用性、异常 Pod
-5. **异常事件**：Warning 事件、高频重复事件、关键事件类型
-6. **系统组件**：kube-system、cattle-system 核心组件状态
+| 维度 | Agent | 职责 |
+|------|-------|------|
+| 1. 集群基础信息 | `cluster-info-inspector` | 状态、版本、项目 |
+| 2. 节点健康 | `node-health-inspector` | Ready 状态、Conditions、Taints、版本一致性 |
+| 3. 资源容量 | `capacity-inspector` | CPU/内存请求/限制/使用率、Pod 数量、过度分配 |
+| 4. 工作负载健康 | `workload-inspector` | Deployment/StatefulSet/DaemonSet 可用性、异常 Pod |
+| 5. 异常事件 | `event-inspector` | Warning 事件、高频重复事件、关键事件类型 |
+| 6. 系统组件 | `system-inspector` | kube-system、cattle-system 核心组件状态 |
 
-巡检范围：
-- **full**：完整巡检（所有维度）
-- **quick**：快速巡检（节点 + 事件）
-- **nodes/workloads/events**：专项巡检
+巡检范围 → Agent 调度：
+- **full**：6 个 Agent 并行（完整巡检）
+- **quick**：3 个 Agent 并行（集群信息 + 节点 + 事件）
+- **nodes**：2 个 Agent 并行（节点 + 容量）
+- **workloads**：2 个 Agent 并行（工作负载 + 事件）
+- **events/system**：1 个 Agent
+
+多集群巡检时，每个集群同时启动一组维度 Agent（N 集群 × 6 Agent 全并行）。
 
 评分体系：A（优秀）→ B（良好）→ C（一般）→ D（较差）
 
