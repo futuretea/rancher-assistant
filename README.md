@@ -119,12 +119,18 @@ rancher-assistant/
 │   ├── marketplace.json                 # 插件市场元数据
 │   └── plugin.json                      # 插件元数据
 ├── agents/                              # Sub-Agent 定义
-│   ├── cluster-explorer/AGENT.md        # 多集群导航 Agent
-│   ├── pod-diagnostician/AGENT.md       # Pod 诊断 Agent
-│   ├── node-analyzer/AGENT.md           # 节点分析 Agent
-│   ├── deployment-tracker/AGENT.md      # 部署追踪 Agent
-│   ├── resource-scout/AGENT.md          # 资源发现 Agent
-│   └── cluster-inspector/AGENT.md       # 集群巡检 Agent
+│   ├── cluster-explorer.md              # 多集群导航 Agent
+│   ├── pod-diagnostician.md             # Pod 诊断 Agent
+│   ├── node-analyzer.md                 # 节点分析 Agent
+│   ├── deployment-tracker.md            # 部署追踪 Agent
+│   ├── resource-scout.md                # 资源发现 Agent
+│   ├── cluster-inspector.md             # 集群巡检协调器 Agent
+│   ├── cluster-info-inspector.md        # 巡检维度: 集群基础信息
+│   ├── node-health-inspector.md         # 巡检维度: 节点健康
+│   ├── capacity-inspector.md            # 巡检维度: 资源容量
+│   ├── workload-inspector.md            # 巡检维度: 工作负载健康
+│   ├── event-inspector.md               # 巡检维度: 异常事件
+│   └── system-inspector.md              # 巡检维度: 系统组件
 ├── skills/                              # Skill 触发器
 │   ├── cluster-management/SKILL.md
 │   ├── resource-troubleshooting/SKILL.md
